@@ -1,6 +1,6 @@
 "use server"
 
-import { genId } from "@/utils/func"
+import { genId, groupBy } from "@/utils/func"
 import { db } from "../db"
 import { revalidatePath } from "next/cache"
 import getDiff from "diff-arrays-of-objects"
@@ -137,15 +137,15 @@ export async function getTasksNParts() {
     },
   })
 
-  // const objWithId = Object.groupBy(tasks, ({ tasksId }) => tasksId)
-  // const res = Object.values(objWithId)
+  const objWithId = groupBy(tasks, ({ tasksId }) => tasksId)
+  const res = Object.values(objWithId)
 
   const parts = await db.part.findMany({ where: { prjId: global.prjId } })
   const prtsNoGrp = await db.part.findMany({
     where: { tasksId: null, AND: { prjId: global.prjId } },
   })
 
-  return JSON.stringify({ tasks, parts, prtsNoGrp })
+  return JSON.stringify({ grpTasks: res, parts, prtsNoGrp })
 }
 
 export async function revalidateProject() {

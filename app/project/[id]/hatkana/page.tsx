@@ -3,9 +3,7 @@ import { getTasksNParts } from "@/db/actions/setupTask"
 
 export default async function hatkana() {
   const res = await getTasksNParts()
-  const { tasks, parts, prtsNoGrp } = JSON.parse(res)
-
-  const grpTasks = Object.values(Object.groupBy(tasks, (el: any) => el.tasksId))
+  let { grpTasks, parts, prtsNoGrp } = JSON.parse(res)
 
   return (
     <div className="">
