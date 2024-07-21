@@ -1,0 +1,17 @@
+-- CreateTable
+CREATE TABLE "Qrs" (
+    "id" SERIAL NOT NULL,
+    "taskId" INTEGER NOT NULL,
+    "partId" INTEGER NOT NULL,
+    "ordr" INTEGER NOT NULL,
+    "qrId" INTEGER NOT NULL,
+    "createdAt" TIMESTAMP(3) NOT NULL DEFAULT CURRENT_TIMESTAMP,
+
+    CONSTRAINT "Qrs_pkey" PRIMARY KEY ("id")
+);
+
+-- AddForeignKey
+ALTER TABLE "Qrs" ADD CONSTRAINT "Qrs_taskId_fkey" FOREIGN KEY ("taskId") REFERENCES "Tasks"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+
+-- AddForeignKey
+ALTER TABLE "Qrs" ADD CONSTRAINT "Qrs_partId_fkey" FOREIGN KEY ("partId") REFERENCES "Parts"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

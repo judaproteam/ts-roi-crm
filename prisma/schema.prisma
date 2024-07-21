@@ -1,0 +1,63 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Part {
+  id   Int    @id @default(autoincrement())
+  name String
+  dis  String
+  qntt Int
+  qr   Qr[]
+
+  prjId   Int
+  tasksId Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([name, prjId])
+}
+
+model MainTask {
+  id      Int      @id @default(autoincrement())
+  title   String
+  dis     String
+  tasksId Int
+  prjId   Int
+  order   Int
+  pic     Boolean? @default(false)
+  vid     Boolean? @default(false)
+  mngr    Boolean? @default(false)
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Task      Task[]
+}
+
+model Task {
+  id           Int      @id @default(autoincrement())
+  task         MainTask @relation(fields: [mainTaskId], references: [id])
+  pic          String?
+  vid          String?
+  mngrApproved Boolean? @default(false)
+
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+  mainTaskId Int
+  Qr         Qr?      @relation(fields: [qrId], references: [id])
+  qrId       Int?
+}
+
+model Qr {
+  id    Int    @id @default(autoincrement())
+  Tasks Task[]
+  qrNum Int
+  part  Part   @relation(fields: [partId], references: [id])
+
+  partId Int
+}
