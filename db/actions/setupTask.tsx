@@ -136,15 +136,16 @@ export async function getTasksNParts() {
       prjId: true,
     },
   })
-  const objWithId = Object.groupBy(tasks, ({ tasksId }) => tasksId)
-  const res = Object.values(objWithId)
+
+  // const objWithId = Object.groupBy(tasks, ({ tasksId }) => tasksId)
+  // const res = Object.values(objWithId)
 
   const parts = await db.part.findMany({ where: { prjId: global.prjId } })
   const prtsNoGrp = await db.part.findMany({
     where: { tasksId: null, AND: { prjId: global.prjId } },
   })
 
-  return JSON.stringify({ grpTasks: res, parts, prtsNoGrp })
+  return JSON.stringify({ tasks, parts, prtsNoGrp })
 }
 
 export async function revalidateProject() {

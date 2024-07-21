@@ -217,7 +217,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
                   <Icon name="xmark" className="" type="lit" />
                   <p>בטל עריכה</p>
                 </button>
-                <button className="btn bg-green-700" onClick={updateTask}>
+                <button className="btn bg-green-800" onClick={updateTask}>
                   <Icon name="floppy-disk-pen" className="bg-white rtl:scale-x-100" type="sol" />
                   <p>שמור עריכה</p>
                 </button>
