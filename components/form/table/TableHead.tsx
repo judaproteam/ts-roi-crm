@@ -4,7 +4,7 @@ export default function TableHead({ headNames }) {
       <tr className="bg-blue-50">
         {headNames.map((name, i) => {
           return (
-            <th key={i} scope="col" className={`px-6 py-3 text-start text-sm font-semibold}`}>
+            <th key={i} scope="col" className="tblHead">
               {name}
             </th>
           )

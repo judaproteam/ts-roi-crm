@@ -1,8 +1,7 @@
-"use client"
+'use client'
 
-import Icon from "@/components/Icon"
-// import Link from "next/link"
-import { Link } from "next-view-transitions"
+import Icon from '@/components/Icon'
+import Link from 'next/link'
 
 export default function project({ params }) {
   return (

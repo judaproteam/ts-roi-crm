@@ -1,27 +1,25 @@
-"use client"
+'use client'
 
-import TaskForm from "@/components/form/forms/TaskForm"
-import Table from "@/components/form/table/Table"
-import Icon from "@/components/Icon"
-import { updateTasksNParts, crtTasksNParts, deleteTasksNParts } from "@/db/actions/setupTask"
+import TaskForm from '@/components/form/forms/TaskForm'
+import Table from '@/components/form/table/Table'
+import Icon from '@/components/Icon'
+import { updateTasksNParts, crtTasksNParts, deleteTasksNParts } from '@/db/actions/setupTask'
 
-import { clone, genId } from "@/utils/func"
-import { useState } from "react"
-import { useRouter } from "next/navigation"
-import TaskTableRows from "@/components/form/table/TaskTableRows"
+import { clone, genId } from '@/utils/func'
+import { useState } from 'react'
+import TaskTableRows from '@/components/form/table/TaskTableRows'
+import { showPop } from '@/components/GlobalPopMsg'
 
 let tmpIndex: number, oldTasks: any[], oldParts: any[]
-const initialTask = { title: "", dis: "", pic: false, vid: false, mngr: false, id: genId() }
+const initialTask = { title: '', dis: '', pic: false, vid: false, mngr: false, id: genId() }
 
 export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
   const [tmpParts, setTmpParts] = useState([])
   const [tasks, setTasks] = useState([initialTask])
   const [editMode, setEditMode] = useState(false)
-  const router = useRouter()
 
   // refresh on change
   function refresh() {
-    // router.refresh()
     setTasks([initialTask])
     setTmpParts([])
   }
@@ -39,20 +37,25 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
       const data = new FormData(form)
 
       if (i === 0) {
-        partIds = Object.fromEntries(data)
+        partIds = Object.keys(Object.fromEntries(data))
+        if (partIds.length === 0) {
+          return showPop({ msg: 'לא נבחרו פריטים', icon: 'error' })
+        }
       } else {
         tasksDb.push(Object.fromEntries(data))
       }
 
-      console.log("global.prjId: ", globalThis.prjId)
-      console.log("fromEntries : ", i + " ", Object.fromEntries(data))
-      console.log("tasksDb: ", tasksDb)
+      console.log('global.prjId: ', globalThis.prjId)
+      console.log('fromEntries : ', i + ' ', Object.fromEntries(data))
+      console.log('tasksDb: ', tasksDb)
     }
+    showPop({ msg: 'שומר משימות...', icon: 'loading' })
 
-    partIds = Object.keys(partIds).map(Number)
+    partIds = partIds.map(Number)
     const res = await crtTasksNParts(tasksDb, partIds)
     refresh()
-    console.log("res: ", res)
+    showPop({ msg: 'המשימות נשמרו בהצלחה', icon: 'success' })
+    console.log('res: ', res)
   }
 
   // Update Task
@@ -69,6 +72,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
 
       if (i === 0) {
         partIds = Object.fromEntries(data)
+        if (partIds) return document.getElementById('noPartsMsg')?.showPopover()
       } else {
         newTasks.push(Object.fromEntries(data))
       }
@@ -79,7 +83,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
     partIds = Object.keys(partIds).map(Number)
     const res = await updateTasksNParts(newTasks, oldTasks, partIds, oldParts)
     refresh()
-    console.log("res: ", res)
+    console.log('res: ', res)
     scrollBy(0, 200)
   }
 
@@ -87,7 +91,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
     oldParts = oldParts.map((el) => el.id)
     const res = await deleteTasksNParts(oldTasks, oldParts)
     refresh()
-    console.log("res: ", res)
+    console.log('res: ', res)
     scrollBy(0, 200)
   }
 
@@ -103,7 +107,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
     spredArr.splice(tmpIndex, 1)
 
     setTasks(spredArr)
-    document.getElementById("deleteTaskPop")?.hidePopover()
+    document.getElementById('deleteTaskPop')?.hidePopover()
   }
 
   function swap(i, num) {
@@ -277,7 +281,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
                 </div>
               </div>
 
-              <Table headNames={["משימה", "כותרת", "פירוט", "בסיום המשימה"]}>
+              <Table headNames={['משימה', 'כותרת', 'פירוט', 'בסיום המשימה']}>
                 <TaskTableRows rowsData={grp} />
               </Table>
             </main>
@@ -285,24 +289,24 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
         })}
       </section>
 
-      <div id="deletePop" popover="auto" className="bg-white p-8 rounded-md">
+      <div id="deletePop" popover="auto" className="pop">
         <DeletePop
           txt="בטוח למחוק את קבוצת המשימות?"
           onClick={() => {
             deleteAllTasks()
-            document.getElementById("deletePop")?.hidePopover()
+            document.getElementById('deletePop')?.hidePopover()
           }}
         />
       </div>
 
-      <div id="deleteTaskPop" popover="auto" className="bg-white p-8 rounded-md">
+      <div id="deleteTaskPop" popover="auto" className="pop">
         <DeletePop txt="בטוח למחוק את המשימה?" onClick={deleteTask} />
       </div>
     </main>
   )
 }
 
-const DeletePop = ({ txt = "", onClick }) => {
+const DeletePop = ({ txt = '', onClick }) => {
   return (
     <>
       <div className="flex gap-3 border-b pb-1 mb-3">

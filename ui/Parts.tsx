@@ -1,40 +1,43 @@
-"use client"
+'use client'
 
-import Icon from "@/components/Icon"
-import { Part } from "@prisma/client"
-import { dltPart, crtPart, upPart, updateCache } from "@/db/actions/parts"
-import { useState } from "react"
-import TextInput from "@/components/form/TextInput"
-import Textarea from "@/components/form/Textarea"
-import Table from "@/components/form/table/Table"
-import PartTableRows from "@/components/form/table/PartTableRows"
+import Icon from '@/components/Icon'
+import { Part } from '@prisma/client'
+import { dltPart, crtPart, upPart, updateCache } from '@/db/actions/parts'
+import { useState } from 'react'
+import TextInput from '@/components/form/TextInput'
+import Textarea from '@/components/form/Textarea'
+import Table from '@/components/form/table/Table'
+import PartTableRows from '@/components/form/table/PartTableRows'
+import { TmpPart } from '@/db/types'
+import { sumBy } from '@/utils/func'
+import { showPop } from '@/components/GlobalPopMsg'
 
 export default function Parts({ prts }) {
-  const [tmpObj, setTmpObj] = useState({ index: 0, name: "", qntt: 0, dis: "", id: 0 })
+  const [tmpObj, setTmpObj] = useState({} as TmpPart)
 
   async function onSave(e: React.SyntheticEvent) {
     e.preventDefault()
     const form = e.target as HTMLFormElement
 
-    const partName = document.querySelector("[name=name]") as HTMLInputElement
-    const exist = prts.find((p) => p.name === partName?.value)
-    exist && partName.setCustomValidity("שם הפרט כבר קיים")
-    //: partName.setCustomValidity("")
+    const partName = document.querySelector('[name=name]') as HTMLInputElement
+    const exist = prts.find((p) => p.name === partName?.value.trim())
+    if (exist) return showPop({ msg: 'שם הפרט כבר קיים', icon: 'error' })
 
     if (!form.checkValidity()) return form.reportValidity()
 
     const data = new FormData(form)
+
     form.reset()
 
     const part = {
       ...(Object.fromEntries(data) as unknown as Part),
-      qntt: parseInt(data.get("qntt") as string),
+      qntt: parseInt(data.get('qntt') as string),
       prjId: global.prjId,
     }
 
     const res = await crtPart(part)
 
-    console.log("res: ", res)
+    console.log('res: ', res)
 
     partName.focus()
   }
@@ -48,21 +51,20 @@ export default function Parts({ prts }) {
 
       const part = {
         ...(Object.fromEntries(data) as unknown as Part),
-        qntt: parseInt(data.get("qntt") as string),
+        qntt: parseInt(data.get('qntt') as string),
       }
-      console.log("part: ", part)
+      console.log('part: ', part)
 
       const id = tmpObj.id
-
       await upPart(id, part)
 
-      const popover = document.getElementById("editPop") as HTMLDivElement
+      const popover = document.getElementById('editPop') as HTMLDivElement
       popover.hidePopover()
     }
   }
 
   async function deletePart() {
-    const popover = document.getElementById("delPop") as HTMLDivElement
+    const popover = document.getElementById('delPop') as HTMLDivElement
 
     const res = await dltPart(tmpObj.id)
 
@@ -86,7 +88,7 @@ export default function Parts({ prts }) {
           </div>
 
           <div className="mt-8 grid grid-cols-3 gap-8">
-            <TextInput lbl="בחר את שם הפרט" field="name" placeholder="א-25" />
+            <TextInput lbl="בחר את שם הפרט" field="name" placeholder="א-25" autoFocus={true} />
             <TextInput lbl="סך כמות הפריט בפרויקט" field="qntt" placeholder="16" type="number" />
             <Textarea lbl="הוסף את תיאור הפרט" field="dis" className="input col-span-3" />
           </div>
@@ -95,14 +97,14 @@ export default function Parts({ prts }) {
 
       {prts.length > 0 && (
         <section className="paper mt-0 w-4/5 mx-auto py-8">
-          {/* <Table headNames={["מס'", "שם הפרט", "כמות", "תאור הפרט", "פעולה"]}> */}
-          <Table headNames={["מס'", "שם הפרט", "כמות", "תאור הפרט"]}>
+          <Table headNames={["מס'", 'שם הפרט', 'כמות', 'תאור הפרט']}>
             <PartTableRows rowsData={prts} setTmpObj={setTmpObj} />
           </Table>
+          <p className="font-semibold mt-8">סה"כ פרטים לפרוייקט : {sumBy(prts, 'qntt')}</p>
         </section>
       )}
 
-      <div id="editPop" popover="auto" className="rounded-xl border bg-slate-50 p-10 shadow-2xl">
+      <div id="editPop" popover="auto" className="pop">
         <div className="mb-8 flex gap-2 border-b pb-2">
           <Icon name="pen-to-square" className="" />
           <h2 className="">עריכת פרט</h2>
@@ -136,12 +138,12 @@ export default function Parts({ prts }) {
         </form>
       </div>
 
-      <div id="delPop" popover="auto" className="bg-white p-8 rounded-md">
+      <div id="delPop" popover="auto" className="pop">
         <DeletePop
           txt={`בטוח למחוק את הפרט ${tmpObj.name}?`}
           onClick={() => {
             deletePart()
-            document.getElementById("delPop")?.hidePopover()
+            document.getElementById('delPop')?.hidePopover()
           }}
         />
       </div>
@@ -149,7 +151,7 @@ export default function Parts({ prts }) {
   )
 }
 
-const DeletePop = ({ txt = "", onClick }) => {
+const DeletePop = ({ txt = '', onClick }) => {
   return (
     <>
       <div className="flex gap-3 border-b pb-1 mb-3">

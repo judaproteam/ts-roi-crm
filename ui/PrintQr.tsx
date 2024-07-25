@@ -1,5 +1,34 @@
-export default function print() {
-  return <div></div>
+import Icon from '@/components/Icon'
+import { get } from 'http'
+import QR from 'react-qr-code'
+
+export default function PrintQr({ prtsQntt }) {
+  console.log('prtsQntt: ', prtsQntt)
+
+  return (
+    <main className="flex items-start gap-0">
+      <section className="paper w-3/4 mx-auto">
+        <h2 className="flex gap-4 border-b pb-2">
+          <Icon name="print" type="reg" className="size-5" />
+          <span className="text-xl font-semibold">הדפסת בר-קוד QR</span>
+        </h2>
+
+        <div className="flex gap- mt-8">
+          {new Array(prtsQntt).fill(0).map((k, i) => {
+            return (
+              <div className="border rounded p-4 shadow">
+                <p>{i + 1}</p>
+                <QR
+                  value={'https://roi-mobile-app.vercel.app/part_location'}
+                  className="m-4 size-36"
+                />
+              </div>
+            )
+          })}
+        </div>
+      </section>
+    </main>
+  )
 }
 
 // "use client"

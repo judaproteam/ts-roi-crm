@@ -1,12 +1,13 @@
 export default function TextInput({
-  field = "",
-  lbl = "",
-  type = "text",
+  field = '',
+  lbl = '',
+  type = 'text',
   required = true,
-  className = "",
-  info = "",
-  placeholder = "",
+  className = '',
+  info = '',
+  placeholder = '',
   defaultValue,
+  autoFocus = false,
 }: any) {
   return (
     <label className={`input ${className}`}>
@@ -16,7 +17,7 @@ export default function TextInput({
       </div>
       <input
         onChange={(e) => {
-          e.target.setCustomValidity("")
+          e.target.setCustomValidity('')
         }}
         type={type}
         name={field}
@@ -24,7 +25,8 @@ export default function TextInput({
         defaultValue={defaultValue}
         min={1}
         placeholder={placeholder}
-        onInvalid={(e) => (e as any).target.setCustomValidity("שדה חובה")}
+        autoFocus={autoFocus}
+        onInvalid={(e) => (e as any).target.setCustomValidity('שדה חובה')}
       />
     </label>
   )

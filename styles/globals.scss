@@ -25,14 +25,14 @@ body {
 @layer base {
   select {
     appearance: none;
-    background-image: url("https://res.cloudinary.com/dfletli2x/image/upload/icons/reg/chevron-down.svg");
+    background-image: url('https://res.cloudinary.com/dfletli2x/image/upload/icons/reg/chevron-down.svg');
     background-repeat: no-repeat;
     background-position: 8% 50%;
     background-size: 12px;
     cursor: pointer;
   }
 
-  input[type="checkbox"] {
+  input[type='checkbox'] {
     cursor: pointer;
   }
 
@@ -42,14 +42,20 @@ body {
     }
   }
 
-  [popover="auto"] {
+  .pop {
+    @apply p-8 rounded-md;
     animation: fadeScaleIn 0.15s ease-out;
-    @apply shadow-lg;
+    box-shadow: 0px 5px 5px -3px rgba(0, 0, 0, 0.2), 0px 8px 10px 1px rgba(0, 0, 0, 0.14),
+      0px 3px 14px 2px rgba(0, 0, 0, 0.12);
     &::backdrop {
       animation: fadeIn 0.25s ease-in;
       background-color: rgba(0, 0, 0, 0.1);
       backdrop-filter: blur(1px);
     }
+  }
+  .popMsg {
+    animation: slideIn 0.15s ease-out;
+    @apply bg-black/85 bottom-8 right-8 inset-auto rounded shadow-lg;
   }
 }
 
@@ -63,6 +69,17 @@ body {
     scale: 1;
   }
 }
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateY(100%);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0%);
+  }
+}
+
 @keyframes fadeIn {
   from {
     opacity: 0;
@@ -226,6 +243,9 @@ body {
 
   .tblRow {
     @apply px-6 py-3 whitespace-nowrap text-sm;
+  }
+  .tblHead {
+    @apply px-6 py-3 text-start text-sm font-semibold whitespace-nowrap;
   }
 
   .iconMask {

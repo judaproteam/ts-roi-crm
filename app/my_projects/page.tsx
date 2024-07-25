@@ -1,8 +1,7 @@
-"use client"
+'use client'
 
-import Icon from "@/components/Icon"
-//import Link from "next/link"
-import { Link } from "next-view-transitions"
+import Icon from '@/components/Icon'
+import Link from 'next/link'
 
 export default function my_projects() {
   return (
@@ -28,8 +27,8 @@ export default function my_projects() {
 
 const ProjPop = () => {
   function onSave(e) {
-    const modal = document.getElementById("projModal")
-    const form = document.getElementById("newProjForm")
+    const modal = document.getElementById('projModal')
+    const form = document.getElementById('newProjForm')
 
     // if (form.checkValidity()) {
     //   e.preventDefault()

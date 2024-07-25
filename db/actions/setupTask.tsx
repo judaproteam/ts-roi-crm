@@ -120,9 +120,11 @@ export async function deleteTasksNParts(tasks, partIds) {
   return "deleted"
 }
 
-export async function getTasksNParts() {
+export async function getTasksNParts(prjId: number) {
+  if (!prjId) return "no prjId"
+
   const tasks = await db.mainTask.findMany({
-    where: { prjId: global.prjId },
+    where: { prjId },
     orderBy: { order: "asc" },
     select: {
       id: true,
@@ -140,9 +142,9 @@ export async function getTasksNParts() {
   const objWithId = groupBy(tasks, ({ tasksId }) => tasksId)
   const res = Object.values(objWithId)
 
-  const parts = await db.part.findMany({ where: { prjId: global.prjId } })
+  const parts = await db.part.findMany({ where: { prjId } })
   const prtsNoGrp = await db.part.findMany({
-    where: { tasksId: null, AND: { prjId: global.prjId } },
+    where: { tasksId: null, AND: { prjId } },
   })
 
   return JSON.stringify({ grpTasks: res, parts, prtsNoGrp })

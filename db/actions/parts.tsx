@@ -1,6 +1,7 @@
-import { Part } from "@prisma/client"
-import { revalidatePath } from "next/cache"
-import { db } from "../db"
+import { Part } from '@prisma/client'
+import { revalidatePath } from 'next/cache'
+import { db } from '../db'
+import { sumBy } from '@/utils/func'
 
 export async function updateCache(path: string) {
   revalidatePath(path)
@@ -40,8 +41,27 @@ export async function crtPart(obj) {
   return res
 }
 
-export async function getAllParts() {
-  return await db.part.findMany()
+export async function getPartsSum(prjId: number) {
+  const prts = await db.part.findMany({
+    where: {
+      prjId,
+    },
+    select: {
+      qntt: true,
+    },
+  })
+
+  const sum = sumBy(prts, 'qntt')
+  console.log('prts: ', prts)
+  return sum
+}
+
+export async function getPartsByPrj(prjId: number) {
+  return await db.part.findMany({
+    where: {
+      prjId,
+    },
+  })
 }
 
 export async function upPart(id: number, obj: Part) {

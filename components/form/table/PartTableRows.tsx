@@ -16,14 +16,14 @@ export default function PartTableRows({ rowsData, setTmpObj }) {
                 <button
                   className="simpleBtn-xs hover:bg-blue-50"
                   popoverTarget="editPop"
-                  onClick={() => setTmpObj(row)}>
+                  onClick={() => setTmpObj({ ...row })}>
                   <Icon name="pen-to-square" className="rtl:scale-x-100" />
                   <p>עריכה</p>
                 </button>
                 <button
                   className="simpleBtn-xs hover:bg-red-50"
                   popoverTarget="delPop"
-                  onClick={() => setTmpObj(row)}>
+                  onClick={() => setTmpObj({ ...row })}>
                   <Icon name="trash" />
                   <p>מחיקה</p>
                 </button>
