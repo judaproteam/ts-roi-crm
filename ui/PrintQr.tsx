@@ -1,4 +1,5 @@
 import Icon from '@/components/Icon'
+import { arrayOf } from '@/utils/func'
 import { get } from 'http'
 import QR from 'react-qr-code'
 
@@ -14,7 +15,7 @@ export default function PrintQr({ prtsQntt }) {
         </h2>
 
         <div className="flex gap- mt-8">
-          {new Array(prtsQntt).fill(0).map((k, i) => {
+          {arrayOf(0, prtsQntt).map((k, i) => {
             return (
               <div className="border rounded p-4 shadow border-slate-500 text-black">
                 <div className="flex justify-between items-start mb-6">

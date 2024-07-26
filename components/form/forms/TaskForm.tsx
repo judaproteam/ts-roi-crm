@@ -1,5 +1,5 @@
-import Textarea from "../Textarea"
-import TextInput from "../TextInput"
+import Textarea from '../Textarea'
+import TextInput from '../TextInput'
 
 export default function TaskForm({ task }) {
   return (
@@ -17,6 +17,7 @@ export default function TaskForm({ task }) {
         field="dis"
         defaultValue={task.dis}
         placeholder="כתוב כאן את פרטי המשימה לביצוע"
+        className="col-span-2"
       />
 
       <div className="">

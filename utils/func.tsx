@@ -17,3 +17,12 @@ export function sumBy(arr, field) {
 export function sortBy(xs, f) {
   return xs.slice().sort((a, b) => f(a) - f(b))
 }
+
+export function arrayOf(start = 0 as number, stop: number) {
+  const arr = [] as number[]
+  let i = start || 0
+  for (i; i < stop; i++) {
+    arr.push(i)
+  }
+  return arr
+}
