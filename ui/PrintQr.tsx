@@ -16,12 +16,15 @@ export default function PrintQr({ prtsQntt }) {
         <div className="flex gap- mt-8">
           {new Array(prtsQntt).fill(0).map((k, i) => {
             return (
-              <div className="border rounded p-4 shadow">
-                <p>{i + 1}</p>
-                <QR
-                  value={'https://roi-mobile-app.vercel.app/part_location'}
-                  className="m-4 size-36"
-                />
+              <div className="border rounded p-4 shadow border-slate-500 text-black">
+                <div className="flex justify-between items-start mb-6">
+                  <span>
+                    <h2>פרוייקט הדסים</h2>
+                    <h3>בניין B</h3>
+                  </span>
+                  <p>{i + 1}#</p>
+                </div>
+                <QR value={`https://roi-mobile-app.vercel.app/qr/${i}`} className="m-4 size-36" />
               </div>
             )
           })}
