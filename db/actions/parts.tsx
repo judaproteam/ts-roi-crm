@@ -1,3 +1,5 @@
+'use server'
+
 import { Part } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { db } from '../db'
@@ -22,21 +24,17 @@ export async function updatePartsTasksId(partIds: number[], tasksId: number) {
   return res
 }
 
-export async function crtPart(obj) {
+export async function crtPart(data: Part) {
   let res
   try {
     res = await db.part.create({
-      data: {
-        ...obj,
-        qntt: parseInt(obj.qntt),
-        prjId: global.prjId,
-      },
+      data,
     })
   } catch (error: any) {
-    return error.message
+    return { err: error.message }
   }
 
-  revalidatePath(`/project/${global.prjId}`)
+  revalidatePath(`/project/${data.prjId}/parts`)
 
   return res
 }

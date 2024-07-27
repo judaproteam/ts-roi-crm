@@ -1,10 +1,10 @@
-"use server"
+'use server'
 
-import { genId, groupBy } from "@/utils/func"
-import { db } from "../db"
-import { revalidatePath } from "next/cache"
-import getDiff from "diff-arrays-of-objects"
-import { log } from "console"
+import { genId, groupBy } from '@/utils/func'
+import { db } from '../db'
+import { revalidatePath } from 'next/cache'
+import getDiff from 'diff-arrays-of-objects'
+import { log } from 'console'
 
 // UPDATE TASKS AND PARTS
 export async function updateTasksNParts(tasks, oldTasks, partIds, oldPartsIds) {
@@ -19,14 +19,14 @@ export async function updateTasksNParts(tasks, oldTasks, partIds, oldPartsIds) {
 
   const diff = getDiff(oldTasks, tasks)
 
-  console.log(" tasks: ", tasks)
-  console.log(" oldTasks: ", oldTasks)
-  console.log(" diff: ", diff)
+  console.log(' tasks: ', tasks)
+  console.log(' oldTasks: ', oldTasks)
+  console.log(' diff: ', diff)
 
   const removeParts = oldPartsIds.filter((element) => !partIds.includes(element))
   const addParts = partIds.filter((element) => !oldPartsIds.includes(element))
-  log("removeParts: ", removeParts)
-  log("addParts: ", addParts)
+  log('removeParts: ', removeParts)
+  log('addParts: ', addParts)
 
   const idsToDelete = diff.removed.map(({ id }) => id)
   await db.$transaction([
@@ -63,18 +63,20 @@ export async function updateTasksNParts(tasks, oldTasks, partIds, oldPartsIds) {
   ])
 
   revalidateProject()
-  return "updated"
+  return 'updated'
 }
 
 // CREAT NEW TASKS AND PARTS
-export async function crtTasksNParts(tasks, partIds) {
+export async function crtTasksNParts(tasks, partIds, prjId) {
   const tasksId = genId()
+
+  console.log('globalThis.prjId: ', globalThis.prjId)
 
   tasks = tasks.map((t, i) => {
     t.pic = t.pic ? true : false
     t.vid = t.vid ? true : false
     t.mngr = t.mngr ? true : false
-    return { ...t, order: i, id: Number(t.id), tasksId, prjId: global.prjId }
+    return { ...t, order: i, id: Number(t.id), tasksId, prjId }
   })
 
   const [t, p] = await db.$transaction([
@@ -117,15 +119,15 @@ export async function deleteTasksNParts(tasks, partIds) {
   ])
 
   revalidateProject()
-  return "deleted"
+  return 'deleted'
 }
 
 export async function getTasksNParts(prjId: number) {
-  if (!prjId) return "no prjId"
+  if (!prjId) return 'no prjId'
 
   const tasks = await db.mainTask.findMany({
     where: { prjId },
-    orderBy: { order: "asc" },
+    orderBy: { order: 'asc' },
     select: {
       id: true,
       title: true,

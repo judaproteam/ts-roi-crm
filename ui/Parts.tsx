@@ -11,8 +11,9 @@ import PartTableRows from '@/components/form/table/PartTableRows'
 import { TmpPart } from '@/db/types'
 import { sumBy } from '@/utils/func'
 import { showPop } from '@/components/GlobalPopMsg'
+import DelPop from '@/components/DelPop'
 
-export default function Parts({ prts }) {
+export default function Parts({ prts, prjId }) {
   const [tmpObj, setTmpObj] = useState({} as TmpPart)
 
   async function onSave(e: React.SyntheticEvent) {
@@ -24,20 +25,20 @@ export default function Parts({ prts }) {
     if (exist) return showPop({ msg: 'שם הפרט כבר קיים', icon: 'error' })
 
     if (!form.checkValidity()) return form.reportValidity()
-
+    showPop({ msg: 'שומר פרט...', icon: 'loading' })
     const data = new FormData(form)
-
-    form.reset()
-
     const part = {
       ...(Object.fromEntries(data) as unknown as Part),
       qntt: parseInt(data.get('qntt') as string),
-      prjId: global.prjId,
+      prjId,
     }
 
     const res = await crtPart(part)
+    if (res.err) return showPop({ msg: 'שגיאה, פרט לא נשמר', icon: 'ban' })
 
+    form.reset()
     console.log('res: ', res)
+    showPop({ msg: 'פרט נשמר בהצלחה', icon: 'success' })
 
     partName.focus()
   }
@@ -138,31 +139,7 @@ export default function Parts({ prts }) {
         </form>
       </div>
 
-      <div id="delPop" popover="auto" className="pop">
-        <DeletePop
-          txt={`בטוח למחוק את הפרט ${tmpObj.name}?`}
-          onClick={() => {
-            deletePart()
-            document.getElementById('delPop')?.hidePopover()
-          }}
-        />
-      </div>
+      <DelPop txt={`בטוח למחוק את הפרט ${tmpObj.name}?`} onDel={deletePart} id="delPop" />
     </main>
-  )
-}
-
-const DeletePop = ({ txt = '', onClick }) => {
-  return (
-    <>
-      <div className="flex gap-3 border-b pb-1 mb-3">
-        <Icon name="triangle-exclamation" />
-        <p className="">פעולת מחיקה</p>
-      </div>
-      <p>{txt}</p>
-      <button className="softBtn-s-r w-full mt-2" onClick={onClick}>
-        <p>כן מחק</p>
-        <Icon name="trash" />
-      </button>
-    </>
   )
 }

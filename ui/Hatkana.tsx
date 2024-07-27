@@ -13,7 +13,7 @@ import { showPop } from '@/components/GlobalPopMsg'
 let tmpIndex: number, oldTasks: any[], oldParts: any[]
 const initialTask = { title: '', dis: '', pic: false, vid: false, mngr: false, id: genId() }
 
-export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
+export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
   const [tmpParts, setTmpParts] = useState([])
   const [tasks, setTasks] = useState([initialTask])
   const [editMode, setEditMode] = useState(false)
@@ -52,7 +52,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts }) {
     showPop({ msg: 'שומר משימות...', icon: 'loading' })
 
     partIds = partIds.map(Number)
-    const res = await crtTasksNParts(tasksDb, partIds)
+    const res = await crtTasksNParts(tasksDb, partIds, prjId)
     refresh()
     showPop({ msg: 'המשימות נשמרו בהצלחה', icon: 'success' })
     console.log('res: ', res)
