@@ -2,7 +2,6 @@
 
 import Icon from '@/components/Icon'
 import { Part } from '@prisma/client'
-import { dltPart, crtPart, upPart, updateCache } from '@/db/actions/parts'
 import { useState } from 'react'
 import TextInput from '@/components/form/TextInput'
 import Textarea from '@/components/form/Textarea'
@@ -12,6 +11,7 @@ import { TmpPart } from '@/db/types'
 import { sumBy } from '@/utils/func'
 import { showPop } from '@/components/GlobalPopMsg'
 import DelPop from '@/components/DelPop'
+import { deletePart, insertPart, updatePart } from '@/db/parts/insert'
 
 export default function Parts({ prts, prjId }) {
   const [tmpObj, setTmpObj] = useState({} as TmpPart)
@@ -33,7 +33,7 @@ export default function Parts({ prts, prjId }) {
       prjId,
     }
 
-    const res = await crtPart(part)
+    const res = await insertPart(part)
     if (res.err) return showPop({ msg: 'שגיאה, פרט לא נשמר', icon: 'ban' })
 
     form.reset()
@@ -57,17 +57,17 @@ export default function Parts({ prts, prjId }) {
       console.log('part: ', part)
 
       const id = tmpObj.id
-      await upPart(id, part)
+      await updatePart({ id, data: part })
 
       const popover = document.getElementById('editPop') as HTMLDivElement
       popover.hidePopover()
     }
   }
 
-  async function deletePart() {
+  async function dltPart() {
     const popover = document.getElementById('delPop') as HTMLDivElement
 
-    const res = await dltPart(tmpObj.id)
+    const res = await deletePart(tmpObj.id)
 
     popover.hidePopover()
   }
@@ -139,7 +139,7 @@ export default function Parts({ prts, prjId }) {
         </form>
       </div>
 
-      <DelPop txt={`בטוח למחוק את הפרט ${tmpObj.name}?`} onDel={deletePart} id="delPop" />
+      <DelPop txt={`בטוח למחוק את הפרט ${tmpObj.name}?`} onDel={dltPart} id="delPop" />
     </main>
   )
 }

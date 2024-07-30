@@ -1,4 +1,4 @@
-export default function SelectInput({
+export default function SelectObj({
   lbl = '',
   info = '',
   field = '',
@@ -14,7 +14,7 @@ export default function SelectInput({
       </div>
       <select name={field} onChange={onSelect} defaultValue={defaultValue}>
         {list.map((item, i) => (
-          <option value={item} key={i}>
+          <option value={i} key={i}>
             {item}
           </option>
         ))}

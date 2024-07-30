@@ -6,8 +6,7 @@ import { revalidatePath } from 'next/cache'
 import getDiff from 'diff-arrays-of-objects'
 import { log } from 'console'
 
-// UPDATE TASKS AND PARTS
-export async function updateTasksNParts(tasks, oldTasks, partIds, oldPartsIds) {
+export async function updateTasksNParts({ tasks, oldTasks, partIds, oldPartsIds }) {
   const tasksId = oldTasks[0].tasksId
 
   tasks = tasks.map((t, i) => {
@@ -66,8 +65,7 @@ export async function updateTasksNParts(tasks, oldTasks, partIds, oldPartsIds) {
   return 'updated'
 }
 
-// CREAT NEW TASKS AND PARTS
-export async function crtTasksNParts(tasks, partIds, prjId) {
+export async function crtTasksNParts({ tasks, partIds, prjId }) {
   const tasksId = genId()
 
   console.log('globalThis.prjId: ', globalThis.prjId)
@@ -98,10 +96,7 @@ export async function crtTasksNParts(tasks, partIds, prjId) {
   return { t, p }
 }
 
-// DELETE TASKS AND PARTS
-export async function deleteTasksNParts(tasks, partIds) {
-  // const tasksId = tasks[0].tasksId
-
+export async function deleteTasksNParts({ tasks, partIds }) {
   await db.$transaction([
     db.mainTask.deleteMany({
       where: {
@@ -120,36 +115,6 @@ export async function deleteTasksNParts(tasks, partIds) {
 
   revalidateProject()
   return 'deleted'
-}
-
-export async function getTasksNParts(prjId: number) {
-  if (!prjId) return 'no prjId'
-
-  const tasks = await db.mainTask.findMany({
-    where: { prjId },
-    orderBy: { order: 'asc' },
-    select: {
-      id: true,
-      title: true,
-      dis: true,
-      pic: true,
-      vid: true,
-      mngr: true,
-      order: true,
-      tasksId: true,
-      prjId: true,
-    },
-  })
-
-  const objWithId = groupBy(tasks, ({ tasksId }) => tasksId)
-  const res = Object.values(objWithId)
-
-  const parts = await db.part.findMany({ where: { prjId } })
-  const prtsNoGrp = await db.part.findMany({
-    where: { tasksId: null, AND: { prjId } },
-  })
-
-  return JSON.stringify({ grpTasks: res, parts, prtsNoGrp })
 }
 
 export async function revalidateProject() {

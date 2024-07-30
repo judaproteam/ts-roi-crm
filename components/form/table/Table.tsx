@@ -1,9 +1,8 @@
-import TableHead from "./TableHead"
+import TableHead from './TableHead'
 
 export default function Table({ headNames, children }) {
   return (
     <main>
-      {/* Table */}
       <div className="flex flex-col">
         <div className="overflow-x-auto w-11/12">
           <div className="p-1.5 min-w-full inline-block align-middle">

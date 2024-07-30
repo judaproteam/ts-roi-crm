@@ -3,12 +3,11 @@
 import TaskForm from '@/components/form/forms/TaskForm'
 import Table from '@/components/form/table/Table'
 import Icon from '@/components/Icon'
-import { updateTasksNParts, crtTasksNParts, deleteTasksNParts } from '@/db/actions/setupTask'
-
 import { clone, genId } from '@/utils/func'
 import { useState } from 'react'
 import TaskTableRows from '@/components/form/table/TaskTableRows'
 import { showPop } from '@/components/GlobalPopMsg'
+import { crtTasksNParts, deleteTasksNParts, updateTasksNParts } from '@/db/tasks/insert'
 
 let tmpIndex: number, oldTasks: any[], oldParts: any[]
 const initialTask = { title: '', dis: '', pic: false, vid: false, mngr: false, id: genId() }
@@ -52,7 +51,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
     showPop({ msg: 'שומר משימות...', icon: 'loading' })
 
     partIds = partIds.map(Number)
-    const res = await crtTasksNParts(tasksDb, partIds, prjId)
+    const res = await crtTasksNParts({ tasks: tasksDb, partIds, prjId })
     refresh()
     showPop({ msg: 'המשימות נשמרו בהצלחה', icon: 'success' })
     console.log('res: ', res)
@@ -79,9 +78,15 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
     }
 
     oldParts = oldParts.map((el) => el.id)
-
     partIds = Object.keys(partIds).map(Number)
-    const res = await updateTasksNParts(newTasks, oldTasks, partIds, oldParts)
+
+    const res = await updateTasksNParts({
+      tasks: newTasks,
+      oldTasks,
+      partIds,
+      oldPartsIds: oldParts,
+    })
+    //const res = await updateTasksNParts(newTasks, oldTasks, partIds, oldParts)
     refresh()
     console.log('res: ', res)
     scrollBy(0, 200)
@@ -89,7 +94,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
 
   async function deleteAllTasks() {
     oldParts = oldParts.map((el) => el.id)
-    const res = await deleteTasksNParts(oldTasks, oldParts)
+    const res = await deleteTasksNParts({ tasks: oldTasks, partIds: oldParts })
     refresh()
     console.log('res: ', res)
     scrollBy(0, 200)

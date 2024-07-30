@@ -33,10 +33,10 @@ model MainTask {
   pic     Boolean? @default(false)
   vid     Boolean? @default(false)
   mngr    Boolean? @default(false)
+  Task    Task[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  Task      Task[]
 }
 
 model Task {
@@ -46,18 +46,29 @@ model Task {
   vid          String?
   mngrApproved Boolean? @default(false)
 
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
   mainTaskId Int
-  Qr         Qr?      @relation(fields: [qrId], references: [id])
+  Qr         Qr?  @relation(fields: [qrId], references: [id])
   qrId       Int?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }
 
 model Qr {
-  id    Int    @id @default(autoincrement())
-  Tasks Task[]
-  qrNum Int
-  part  Part   @relation(fields: [partId], references: [id])
+  id       Int    @id @default(autoincrement())
+  qrNum    Int
+  prjId    Int
+  floor    Int
+  aptNum   Int
+  locInApt String
 
+  part   Part   @relation(fields: [partId], references: [id])
   partId Int
+  Tasks  Task[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([qrNum, prjId])
+  @@index([qrNum, prjId])
 }

@@ -1,5 +1,5 @@
+import { getTasksNParts } from '@/db/tasks/get'
 import Hatkana from '@/ui/Hatkana'
-import { getTasksNParts } from '@/db/actions/setupTask'
 
 export async function generateStaticParams() {
   return [{ prjId: '3434343' }]

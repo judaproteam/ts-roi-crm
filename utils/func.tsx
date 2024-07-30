@@ -26,3 +26,19 @@ export function arrayOf(start = 0 as number, stop: number) {
   }
   return arr
 }
+
+export const getFormData = (e) => {
+  e.preventDefault()
+  const form = e.target as HTMLFormElement
+  const data = Object.fromEntries(new FormData(form))
+
+  return onlyValObj(data)
+}
+
+export function onlyValObj(obj: any) {
+  const filter = {}
+  for (const key in obj) {
+    if (obj[key]) filter[key] = obj[key]
+  }
+  return filter
+}
