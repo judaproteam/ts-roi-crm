@@ -9,11 +9,7 @@ export default function Table({ headNames, children }) {
             <div className="overflow-hidden">
               <table className="min-w-full divide-y divide-gray-200">
                 <TableHead headNames={headNames} />
-
-                <tbody className="divide-y divide-gray-200">
-                  {/* <TaskTableRows rowsData={rowsData} /> */}
-                  {children}
-                </tbody>
+                <tbody className="divide-y divide-gray-200">{children}</tbody>
               </table>
             </div>
           </div>

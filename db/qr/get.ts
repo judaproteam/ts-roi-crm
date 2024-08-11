@@ -21,6 +21,7 @@ export async function getQr({ qrNum, prjId }: { qrNum: number; prjId: number }) 
     where: {
       qrNum_prjId: { qrNum, prjId },
     },
+
     include: {
       Tasks: {
         include: {

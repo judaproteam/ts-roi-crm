@@ -12,7 +12,7 @@ export default function PrintQr({ prtsQntt, prjId }) {
         </h2>
 
         <div className="flex gap- mt-8">
-          {arrayOf(0, prtsQntt).map((k, i) => {
+          {arrayOf(0, 20).map((k, i) => {
             return (
               <div className="border rounded p-4 shadow border-slate-500 text-black">
                 <div className="flex justify-between items-start mb-6">
@@ -23,7 +23,7 @@ export default function PrintQr({ prtsQntt, prjId }) {
                   <p>{i + 1}#</p>
                 </div>
                 <QR
-                  value={`https://roi-crmy.vercel.app/qr/${prjId}/${i}`}
+                  value={`https://roi-crmy.vercel.app/qr/${prjId}/${i + 1}`}
                   className="m-4 size-36"
                 />
               </div>

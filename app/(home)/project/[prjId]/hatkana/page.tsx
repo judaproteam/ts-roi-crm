@@ -9,6 +9,8 @@ export default async function hatkana({ params: { prjId } }) {
   prjId = Number(prjId)
 
   const res = await getTasksNParts(prjId)
+  console.log('res: ', res)
+
   let { grpTasks, parts, prtsNoGrp } = JSON.parse(res)
 
   return (

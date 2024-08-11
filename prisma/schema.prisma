@@ -66,6 +66,8 @@ model Qr {
   partId Int
   Tasks  Task[]
 
+  crntTask Int @default(0)
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
