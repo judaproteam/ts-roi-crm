@@ -7,10 +7,44 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  role      String
+  phone     String
+  email     String
+  password  String?
+  pic       String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Company {
+  id   Int    @id @default(autoincrement())
+  name String
+
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  projects  Project[]
+}
+
+model Project {
+  id        Int      @id @default(autoincrement())
+  name      String
+  createdBy User     @relation(fields: [userId], references: [id])
+  company   Company  @relation(fields: [companyId], references: [id])
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  userId    Int
+  companyId Int
+}
+
 model Part {
   id   Int    @id @default(autoincrement())
   name String
-  dis  String
+  desc String
   qntt Int
   qr   Qr[]
 
@@ -26,7 +60,7 @@ model Part {
 model MainTask {
   id      Int      @id @default(autoincrement())
   title   String
-  dis     String
+  desc    String
   tasksId Int
   prjId   Int
   order   Int
@@ -41,17 +75,37 @@ model MainTask {
 
 model Task {
   id           Int      @id @default(autoincrement())
-  task         MainTask @relation(fields: [mainTaskId], references: [id])
+  mainTask     MainTask @relation(fields: [mainTaskId], references: [id])
   pic          String?
   vid          String?
   mngrApproved Boolean? @default(false)
 
-  mainTaskId Int
-  Qr         Qr?  @relation(fields: [qrId], references: [id])
-  qrId       Int?
+  mainTaskId  Int
+  qr          Qr?       @relation(fields: [qrId], references: [id])
+  qrId        Int?
+  completed   Boolean?  @default(false)
+  completedBy String?
+  completedAt DateTime?
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  Rejects   Reject[]
+}
+
+model Reject {
+  id           Int      @id @default(autoincrement())
+  reject       String
+  rejectAt     DateTime
+  rejectBy     String
+  rejectPics   String[]
+  rejectVids   String[]
+  rejectSolved Boolean  @default(false)
+
+  task Task @relation(fields: [taskId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  taskId    Int
 }
 
 model Qr {
@@ -64,9 +118,7 @@ model Qr {
 
   part   Part   @relation(fields: [partId], references: [id])
   partId Int
-  Tasks  Task[]
-
-  crntTask Int @default(0)
+  tasks  Task[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

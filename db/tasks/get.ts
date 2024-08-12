@@ -15,7 +15,7 @@ export async function getTasksNParts(prjId: number) {
     select: {
       id: true,
       title: true,
-      dis: true,
+      desc: true,
       pic: true,
       vid: true,
       mngr: true,
@@ -32,7 +32,6 @@ export async function getTasksNParts(prjId: number) {
   const prtsNoGrp = await db.part.findMany({
     where: { AND: { prjId, tasksId: null } },
   })
-  console.log('prtsNoGrp: ', prtsNoGrp)
 
   return JSON.stringify({ grpTasks: res, parts, prtsNoGrp })
 }

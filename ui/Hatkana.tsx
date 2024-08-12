@@ -10,7 +10,7 @@ import { showPop } from '@/components/GlobalPopMsg'
 import { crtTasksNParts, deleteTasksNParts, updateTasksNParts } from '@/db/tasks/insert'
 
 let tmpIndex: number, oldTasks: any[], oldParts: any[]
-const initialTask = { title: '', dis: '', pic: false, vid: false, mngr: false, id: genId() }
+const initialTask = { title: '', desc: '', pic: false, vid: false, mngr: false, id: genId() }
 
 export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
   const [tmpParts, setTmpParts] = useState([])
@@ -43,10 +43,6 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
       } else {
         tasksDb.push(Object.fromEntries(data))
       }
-
-      console.log('global.prjId: ', globalThis.prjId)
-      console.log('fromEntries : ', i + ' ', Object.fromEntries(data))
-      console.log('tasksDb: ', tasksDb)
     }
     showPop({ msg: 'שומר משימות...', icon: 'loading' })
 
@@ -64,39 +60,49 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
     let partIds,
       newTasks = [] as any[]
 
+    console.log('document.forms: ', document.forms)
+
     for (let i = 0; i < document.forms.length; i++) {
       const form = document.forms[i]
+      console.log('form.checkValidity(): ', form.checkValidity())
       if (!form.checkValidity()) return form.reportValidity()
       const data = new FormData(form)
 
       if (i === 0) {
         partIds = Object.fromEntries(data)
-        if (partIds) return document.getElementById('noPartsMsg')?.showPopover()
+        console.log('partIds: ', partIds)
+
+        if (!partIds) return showPop({ msg: 'לא נבחרו פריטים', icon: 'error' })
       } else {
         newTasks.push(Object.fromEntries(data))
       }
     }
 
-    oldParts = oldParts.map((el) => el.id)
+    console.log('oldParts: ', oldParts)
+
+    const oldPartsIds = oldParts.map((el) => el.id)
     partIds = Object.keys(partIds).map(Number)
 
+    showPop({ msg: 'משימות מתעדכנות...', icon: 'loading' })
     const res = await updateTasksNParts({
       tasks: newTasks,
       oldTasks,
       partIds,
-      oldPartsIds: oldParts,
+      oldPartsIds,
     })
-    //const res = await updateTasksNParts(newTasks, oldTasks, partIds, oldParts)
-    refresh()
     console.log('res: ', res)
+
+    showPop({ msg: 'משימות עודכנו בהצלחה', icon: 'success' })
+
     scrollBy(0, 200)
   }
 
   async function deleteAllTasks() {
+    showPop({ msg: 'מחיקת המשימות...', icon: 'loading' })
     oldParts = oldParts.map((el) => el.id)
     const res = await deleteTasksNParts({ tasks: oldTasks, partIds: oldParts })
-    refresh()
-    console.log('res: ', res)
+    showPop({ msg: 'המשימות נמחקו בהצלחה', icon: 'success' })
+
     scrollBy(0, 200)
   }
 
@@ -140,7 +146,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
                 return (
                   <label className="check" key={part.id}>
                     <input type="checkbox" defaultChecked={part.check} name={part.id} />
-                    <p title={part.dis}>{part.name}</p>
+                    <p title={part.desc}>{part.name}</p>
                   </label>
                 )
               })}
@@ -184,10 +190,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
                       type="button"
                       title="מחק משימה"
                       popoverTarget="deleteTaskPop"
-                      // onClick={(e) => deleteTask(e, i)}
-                      onClick={() => (tmpIndex = i)}
-                      // disabled={tmpGrp.tasks.length === 1}
-                    >
+                      onClick={() => (tmpIndex = i)}>
                       <Icon name="trash" className="size-4" />
                     </button>
                   </div>
@@ -250,7 +253,7 @@ export default function Hatkana({ grpTasks, prtsNoGrp, parts, prjId }) {
                   <p className="font-bold">הפרטים לשלבי הביצוע:</p>
                   {grpParts.map((part) => {
                     return (
-                      <p title={part.dis} key={part.id}>
+                      <p title={part.desc} key={part.id}>
                         {part.name}
                       </p>
                     )

@@ -11,6 +11,9 @@ dependencies:
   diff-arrays-of-objects:
     specifier: ^1.1.9
     version: 1.1.9
+  jude_ui:
+    specifier: ^0.2.9
+    version: 0.2.9
   next:
     specifier: 14.2.5
     version: 14.2.5(react-dom@18.3.1)(react@18.3.1)(sass@1.77.8)
@@ -576,6 +579,10 @@ packages:
 
   /js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
+    dev: false
+
+  /jude_ui@0.2.9:
+    resolution: {integrity: sha512-OeQk2BPwqkuuiqEk/J8kWaE75rxuUSs6+qPh69phmFR0ahQd+7WONAljaj9gdVrrE2MfNEp6ucDjzLeArptCKA==}
     dev: false
 
   /lilconfig@2.1.0:

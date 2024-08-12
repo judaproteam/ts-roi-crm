@@ -1,4 +1,4 @@
-import Icon from "../Icon"
+import Icon from '../Icon'
 
 export default function PartPop({ obj, onEditSave }) {
   return (
@@ -25,7 +25,7 @@ export default function PartPop({ obj, onEditSave }) {
         <label className="input col-span-3">
           <p>תאור הפרט</p>
 
-          <textarea className="txtarea" name="dis" defaultValue={obj.dis} required />
+          <textarea className="txtarea" name="desc" defaultValue={obj.desc} required />
         </label>
 
         <button className="btn-s col-span-3 mt-2" onClick={onEditSave}>

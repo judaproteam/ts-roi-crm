@@ -28,7 +28,7 @@ export async function updateTasksNParts({ tasks, oldTasks, partIds, oldPartsIds 
   log('addParts: ', addParts)
 
   const idsToDelete = diff.removed.map(({ id }) => id)
-  await db.$transaction([
+  const res = await db.$transaction([
     // update tasks
     ...diff.updated.map((tsk) => {
       return db.mainTask.update({
@@ -62,13 +62,14 @@ export async function updateTasksNParts({ tasks, oldTasks, partIds, oldPartsIds 
   ])
 
   revalidateProject()
-  return 'updated'
+
+  console.log('res: ', res)
+
+  return res
 }
 
 export async function crtTasksNParts({ tasks, partIds, prjId }) {
   const tasksId = genId()
-
-  console.log('globalThis.prjId: ', globalThis.prjId)
 
   tasks = tasks.map((t, i) => {
     t.pic = t.pic ? true : false
@@ -118,5 +119,5 @@ export async function deleteTasksNParts({ tasks, partIds }) {
 }
 
 export async function revalidateProject() {
-  revalidatePath(`/project/${global.prjId}/hatkana`)
+  revalidatePath(`/project`)
 }

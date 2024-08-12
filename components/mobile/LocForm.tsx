@@ -1,40 +1,29 @@
-'use client'
-
-import SelectInput from '@/components/form/SelectInput'
-import TextInput from '@/components/form/TextInput'
 import Icon from '@/components/Icon'
-import { arrayOf, getFormData } from '@/utils/func'
-import SelectObj from '@/components/form/SelectObj'
+import { arrayOf } from '@/utils/func'
 import { insertQr } from '@/db/qr/insert'
+import { getPartsByPrjWithTasksId } from '@/db/parts/get'
+import { Input, Select, SelectJson } from 'jude_ui'
 
-export default function LocationForm({ prjId, qrNum, prts }) {
-  async function onSubmit(e) {
-    const data = getFormData(e) as QrData
-    data.prt = prts[data.prt]
-    data.qrNum = qrNum
-
-    console.log('data', data)
-
-    const res = await insertQr(data)
-    console.log('res', res)
-  }
+export default async function LocationForm({ prjId, qrNum }) {
+  const prts = await getPartsByPrjWithTasksId(prjId)
 
   return (
-    <main className="container">
+    <main className="container p-6">
       <div className="flex items-end justify-between border-b pb-3  mb-8">
         <div className="flex gap-4">
           <Icon name="map-location-dot" type="reg" className="" />
           <p className="text-lg font-medium">קבע את המיקום הפריט</p>
         </div>
       </div>
-      <form onSubmit={onSubmit}>
+      <form action={insertQr}>
         <section className="space-y-3">
           <div className="grid grid-cols-2 gap-4">
-            <SelectInput lbl="מספר קומה" field="floor" list={arrayOf(-5, 100)} defaultValue="1" />
-            <TextInput lbl="מספר דירה" field="aptNum" />
+            <Select lbl="מספר קומה" name="floor" list={arrayOf(-5, 100)} defaultValue="1" />
+            <Select lbl="מספר דירה" name="aptNum" list={arrayOf(-5, 100)} defaultValue="1" />
           </div>
-          <TextInput lbl="מיקום בדירה" field="locInApt" />
-          <SelectObj lbl="סוג הפרט" field="prt" list={prts.map((p) => p.name)} />
+          <Input lbl="מיקום בדירה" name="locInApt" />
+          <SelectJson lbl="סוג הפרט" show="name" name="prt" list={prts} />
+          <Input lbl="" name="qrNum" value={qrNum} className="hidden" readOnly />
         </section>
         <button className="btn w-full mt-6">
           <Icon name="floppy-disk" type="sol" className="bg-white" />
@@ -43,13 +32,4 @@ export default function LocationForm({ prjId, qrNum, prts }) {
       </form>
     </main>
   )
-}
-
-type QrData = {
-  qrNum: number
-  prjId: number
-  floor: number
-  aptNum: number
-  locInApt: string
-  prt: string
 }

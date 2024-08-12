@@ -15,10 +15,10 @@ export default function RootLayout({ children }) {
     <html lang="he" dir="rtl">
       <body className={font.className}>
         <GlobalPopMsg />
-        <section className="nav top-0">
+        {/* <section className="nav top-0">
           <TopMenuBtn txt="הפרוייקטים שלי" icon="city" href="/my_projects" />
         </section>
-        <div className="h-10" />
+        <div className="h-10" /> */}
 
         {children}
       </body>

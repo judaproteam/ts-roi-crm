@@ -1,10 +1,15 @@
+'use client'
+
 export default function QrTableRows({ rowsData }) {
+  const rawClick = () => {
+    document.getElementById('historyPop')?.showPopover()
+  }
+
   return (
     <>
       {rowsData.map((row, i) => {
         return (
-          <tr key={i} className="even:bg-blue-50/20">
-            <td className="tblRow">{i + 1}#</td>
+          <tr key={i} className="even:bg-blue-50/20" onClick={rawClick}>
             <td className="tblRow">{row.qrNum}</td>
             <td className="tblRow">{row.part.name}</td>
             <td className="tblRow">{row.floor}</td>
@@ -15,6 +20,27 @@ export default function QrTableRows({ rowsData }) {
       })}
     </>
   )
+}
+
+{
+  /* <section className="my-4">
+        <h2 className="title">משימה 1</h2>
+        <p>שם המבצע: יהודה צבי</p>
+        <p>22.1.24 14:22</p>
+        <div className="flex gap-2 mt-2">
+          <img src="https://i.imgur.com/7u8m9oP.png" alt="משימה 1" className="size-10" />
+          <img src="https://i.imgur.com/7u8m9oP.png" alt="משימה 1" className="size-10" />
+        </div>
+      </section>
+      <section className="my-4">
+        <h2 className="title">משימה 1</h2>
+        <p>שם המבצע: יהודה צבי</p>
+        <p>22.1.24 14:22</p>
+        <div className="flex gap-2 mt-2">
+          <img src="https://i.imgur.com/7u8m9oP.png" alt="משימה 1" className="size-10" />
+          <img src="https://i.imgur.com/7u8m9oP.png" alt="משימה 1" className="size-10" />
+        </div>
+      </section> */
 }
 
 // qr {

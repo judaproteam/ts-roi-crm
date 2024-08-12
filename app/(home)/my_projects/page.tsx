@@ -6,17 +6,23 @@ import Link from 'next/link'
 export default function my_projects() {
   return (
     <main className="flex m-6 gap-4">
-      <button className="proj-btn" popoverTarget="projModal">
+      {/* <button className="proj-btn" popoverTarget="projModal">
         <div>
           <Icon name="plus" className="size-6" type="reg" />
           <p>הוספת פרוייקט חדש</p>
         </div>
-      </button>
+      </button> */}
 
       <Link href={`/project/3434343`} className="proj-btn" key={3434343}>
         <div>
           <Icon name="city" className="size-6" type="reg" />
           <p>פרויקט הדסים</p>
+        </div>
+      </Link>
+      <Link href={`/project/3434343`} className="proj-btn" key={3434343}>
+        <div>
+          <Icon name="city" className="size-6" type="reg" />
+          <p>פרויקט שרונים</p>
         </div>
       </Link>
 
@@ -40,7 +46,7 @@ const ProjPop = () => {
   }
 
   return (
-    <div id="projModal" popover="auto" className="p-8 rounded-md">
+    <div id="projModal" popover="auto" className="pop p-8 rounded-md">
       <h2 className="flex gap-4 border-b pb-2">
         <Icon name="city" type="reg" className="size-5" />
         <span className="text-xl font-semibold">הוסף את פרטי הפרוייקט</span>

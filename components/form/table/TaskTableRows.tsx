@@ -11,7 +11,7 @@ export default function TaskTableRows({ rowsData }) {
           <tr key={i} className="even:bg-blue-50/20">
             <td className="tblRow">{i + 1}#</td>
             <td className="tblRow">{row.title}</td>
-            <td className="tblRow">{row.dis}</td>
+            <td className="tblRow">{row.desc}</td>
             <td className="tblRow">
               {row.pic && <p>חובה תמונה</p>}
               {row.vid && <p>חובה סרטון</p>}

@@ -57,6 +57,10 @@ body {
     animation: slideIn 0.15s ease-out;
     @apply bg-black/85 bottom-8 right-8 inset-auto rounded shadow-lg;
   }
+  pre {
+    font-family: inherit;
+    font-size: inherit;
+  }
 }
 
 @keyframes fadeScaleIn {

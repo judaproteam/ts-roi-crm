@@ -2,7 +2,7 @@ export type TmpPart = {
   id: number
   name: string
   qntt: number
-  dis: string
+  desc: string
   tasksId?: number
   prjId?: number
 }
@@ -10,7 +10,7 @@ export type TmpPart = {
 export type MainTask = {
   id: number
   title: string
-  dis: string
+  desc: string
   pic: boolean
   vid: boolean
   mngr: boolean

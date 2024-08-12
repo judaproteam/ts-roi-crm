@@ -27,6 +27,11 @@ export function arrayOf(start = 0 as number, stop: number) {
   return arr
 }
 
+export function getServerFormData(formData: FormData) {
+  const data = Object.fromEntries(formData)
+  return onlyValObj(data)
+}
+
 export const getFormData = (e) => {
   e.preventDefault()
   const form = e.target as HTMLFormElement

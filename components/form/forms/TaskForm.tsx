@@ -1,4 +1,5 @@
-import Textarea from '../Textarea'
+// import Textarea from '../Textarea'
+import { Textarea, Input } from 'jude_ui'
 import TextInput from '../TextInput'
 
 export default function TaskForm({ task }) {
@@ -6,17 +7,18 @@ export default function TaskForm({ task }) {
     <form name="taskForm" className="grid grid-cols-4 gap-8 items-start mt-4">
       <input type="text" name="id" defaultValue={task.id} className="hidden" readOnly />
 
-      <TextInput
+      <Input
         lbl="כותרת למשימה"
-        field="title"
+        name="title"
         defaultValue={task.title}
-        placeholder="כתוב כאן את כותרת המשימה לביצוע"
+        placeholder="כותרת המשימה לביצוע"
       />
+
       <Textarea
         lbl="פירוט המשימה"
-        field="dis"
-        defaultValue={task.dis}
-        placeholder="כתוב כאן את פרטי המשימה לביצוע"
+        name="desc"
+        defaultValue={task.desc}
+        placeholder="פרטי המשימה לביצוע"
         className="col-span-2"
       />
 

@@ -3,8 +3,8 @@
 import Icon from '@/components/Icon'
 import { Part } from '@prisma/client'
 import { useState } from 'react'
-import TextInput from '@/components/form/TextInput'
-import Textarea from '@/components/form/Textarea'
+// import TextInput from '@/components/form/TextInput'
+// import Textarea from '@/components/form/Textarea'
 import Table from '@/components/form/table/Table'
 import PartTableRows from '@/components/form/table/PartTableRows'
 import { TmpPart } from '@/db/types'
@@ -12,6 +12,7 @@ import { sumBy } from '@/utils/func'
 import { showPop } from '@/components/GlobalPopMsg'
 import DelPop from '@/components/DelPop'
 import { deletePart, insertPart, updatePart } from '@/db/parts/insert'
+import { Input, Textarea } from 'jude_ui'
 
 export default function Parts({ prts, prjId }) {
   const [tmpObj, setTmpObj] = useState({} as TmpPart)
@@ -89,9 +90,9 @@ export default function Parts({ prts, prjId }) {
           </div>
 
           <div className="mt-8 grid grid-cols-3 gap-8">
-            <TextInput lbl="בחר את שם הפרט" field="name" placeholder="א-25" autoFocus={true} />
-            <TextInput lbl="סך כמות הפריט בפרויקט" field="qntt" placeholder="16" type="number" />
-            <Textarea lbl="הוסף את תיאור הפרט" field="dis" className="input col-span-3" />
+            <Input lbl="בחר את שם הפרט" name="name" placeholder="א-25" autoFocus={true} />
+            <Input lbl="סך כמות הפריט בפרויקט" name="qntt" placeholder="16" type="number" />
+            <Textarea lbl="הוסף את תיאור הפרט" name="desc" className="input col-span-3" />
           </div>
         </form>
       </section>
@@ -112,24 +113,19 @@ export default function Parts({ prts, prjId }) {
         </div>
 
         <form id="editForm" onSubmit={onEditSave} className="grid grid-cols-3 gap-8">
-          <TextInput
-            lbl="בחר את שם הפרט"
-            field="name"
-            placeholder="א-25"
-            defaultValue={tmpObj.name}
-          />
-          <TextInput
+          <Input lbl="בחר את שם הפרט" name="name" placeholder="א-25" defaultValue={tmpObj.name} />
+          <Input
             lbl="סך כמות הפריט בפרויקט"
-            field="qntt"
+            name="qntt"
             placeholder="16"
             type="number"
             defaultValue={tmpObj.qntt}
           />
           <Textarea
             lbl="הוסף את תיאור הפרט"
-            field="dis"
+            name="desc"
             className="input col-span-3"
-            defaultValue={tmpObj.dis}
+            defaultValue={tmpObj.desc}
           />
 
           <button className="btn-s col-span-3 mt-2">

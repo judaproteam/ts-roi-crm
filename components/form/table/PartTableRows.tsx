@@ -1,4 +1,4 @@
-import Icon from "@/components/Icon"
+import Icon from '@/components/Icon'
 
 export default function PartTableRows({ rowsData, setTmpObj }) {
   return (
@@ -9,7 +9,7 @@ export default function PartTableRows({ rowsData, setTmpObj }) {
             <td className="tblRow">{i + 1}#</td>
             <td className="tblRow">{row.name}</td>
             <td className="tblRow">{row.qntt}</td>
-            <td className="tblRow">{row.dis}</td>
+            <td className="tblRow">{row.desc}</td>
 
             <td className="tblRow float-end">
               <div className="flex gap-4">
