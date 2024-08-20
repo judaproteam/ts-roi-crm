@@ -7,17 +7,31 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+enum Role {
+  INSTALLER
+  PRJ_MNGR
+  ADMIN
+}
+
 model User {
   id        Int       @id @default(autoincrement())
-  name      String
-  role      String
-  phone     String
-  email     String
-  password  String?
-  pic       String?
-  createdAt DateTime  @default(now())
-  updatedAt DateTime  @updatedAt
+  firstName String
+  lastName  String
+  name      String?   @default(dbgenerated())
+  role      Role      @default(INSTALLER)
+  email     String    @unique
+  phone     String?
+  otp       String?
   projects  Project[]
+  company   Company   @relation(fields: [companyId], references: [id])
+
+  gglSub  String?
+  gglName String?
+  picture String?
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  companyId Int
 }
 
 model Company {
@@ -27,18 +41,19 @@ model Company {
   createdAt DateTime  @default(now())
   updatedAt DateTime  @updatedAt
   projects  Project[]
+  User      User[]
 }
 
 model Project {
   id        Int      @id @default(autoincrement())
   name      String
-  createdBy User     @relation(fields: [userId], references: [id])
   company   Company  @relation(fields: [companyId], references: [id])
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
 
-  userId    Int
   companyId Int
+  User      User? @relation(fields: [userId], references: [id])
+  userId    Int?
 }
 
 model Part {
@@ -116,9 +131,10 @@ model Qr {
   aptNum   Int
   locInApt String
 
-  part   Part   @relation(fields: [partId], references: [id])
-  partId Int
-  tasks  Task[]
+  part    Part   @relation(fields: [partId], references: [id])
+  partId  Int
+  tasks   Task[]
+  setupBy Int
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt

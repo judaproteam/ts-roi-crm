@@ -1,4 +1,4 @@
-import Icon from './Icon'
+import Icon from 'jude_ui/icon'
 
 type DeletePopProps = {
   txt: string

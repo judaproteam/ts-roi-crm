@@ -1,4 +1,4 @@
-import Icon from '@/components/Icon'
+import Icon from 'jude_ui/icon'
 
 export default function PartTableRows({ rowsData, setTmpObj }) {
   return (

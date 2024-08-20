@@ -1,10 +1,8 @@
 'use client'
 
-import Icon from '@/components/Icon'
+import Icon from 'jude_ui/icon'
 import { Part } from '@prisma/client'
 import { useState } from 'react'
-// import TextInput from '@/components/form/TextInput'
-// import Textarea from '@/components/form/Textarea'
 import Table from '@/components/form/table/Table'
 import PartTableRows from '@/components/form/table/PartTableRows'
 import { TmpPart } from '@/db/types'
@@ -12,7 +10,7 @@ import { sumBy } from '@/utils/func'
 import { showPop } from '@/components/GlobalPopMsg'
 import DelPop from '@/components/DelPop'
 import { deletePart, insertPart, updatePart } from '@/db/parts/insert'
-import { Input, Textarea } from 'jude_ui'
+import { Input, Textarea } from 'jude_ui/form'
 
 export default function Parts({ prts, prjId }) {
   const [tmpObj, setTmpObj] = useState({} as TmpPart)
@@ -38,7 +36,6 @@ export default function Parts({ prts, prjId }) {
     if (res.err) return showPop({ msg: 'שגיאה, פרט לא נשמר', icon: 'ban' })
 
     form.reset()
-    console.log('res: ', res)
     showPop({ msg: 'פרט נשמר בהצלחה', icon: 'success' })
 
     partName.focus()
@@ -79,7 +76,7 @@ export default function Parts({ prts, prjId }) {
         <form id="qntityForm" onSubmit={onSave}>
           <div className="flex items-end justify-between border-b pb-3">
             <h2 className="flex gap-4">
-              <Icon name="table-list" type="reg" className="size-5" />
+              <Icon name="table-list" flip type="reg" className="size-5" />
               <span className="text-xl font-semibold">צור כתב כמויות</span>
             </h2>
 
@@ -89,11 +86,13 @@ export default function Parts({ prts, prjId }) {
             </button>
           </div>
 
-          <div className="mt-8 grid grid-cols-3 gap-8">
+          <span className="mt-8 grid grid-cols-3 gap-8">
             <Input lbl="בחר את שם הפרט" name="name" placeholder="א-25" autoFocus={true} />
             <Input lbl="סך כמות הפריט בפרויקט" name="qntt" placeholder="16" type="number" />
-            <Textarea lbl="הוסף את תיאור הפרט" name="desc" className="input col-span-3" />
-          </div>
+            <span className="col-span-3">
+              <Textarea lbl="הוסף את תיאור הפרט" name="desc" className="max-w-xl" />
+            </span>
+          </span>
         </form>
       </section>
 

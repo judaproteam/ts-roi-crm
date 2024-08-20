@@ -1,8 +1,8 @@
-import Icon from '@/components/Icon'
+import Icon from 'jude_ui/icon'
 import { arrayOf } from '@/utils/func'
 import { insertQr } from '@/db/qr/insert'
 import { getPartsByPrjWithTasksId } from '@/db/parts/get'
-import { Input, Select, SelectJson } from 'jude_ui'
+import { Input, Select, SelectJson } from 'jude_ui/form'
 
 export default async function LocationForm({ prjId, qrNum }) {
   const prts = await getPartsByPrjWithTasksId(prjId)

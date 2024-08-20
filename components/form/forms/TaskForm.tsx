@@ -1,6 +1,4 @@
-// import Textarea from '../Textarea'
-import { Textarea, Input } from 'jude_ui'
-import TextInput from '../TextInput'
+import { Textarea, Input } from 'jude_ui/form'
 
 export default function TaskForm({ task }) {
   return (

@@ -18,3 +18,14 @@ export type MainTask = {
   tasksId: number
   prjId: number
 }
+
+export type User = {
+  id: number
+  email: string
+  role: string
+  name: string
+  picture?: string
+  expires?: string
+  iat?: number
+  exp?: number
+}

@@ -1,7 +1,7 @@
 'use client'
 
 import { useEffect, useState } from 'react'
-import Icon from './Icon'
+import Icon from 'jude_ui/icon'
 
 export let showPop
 let popEl: HTMLElement | null = null
