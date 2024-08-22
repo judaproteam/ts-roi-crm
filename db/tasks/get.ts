@@ -1,10 +1,7 @@
 'use server'
 
-import { genId, groupBy } from '@/utils/func'
+import { groupBy } from '@/utils/func'
 import { db } from '../db'
-import { revalidatePath } from 'next/cache'
-import getDiff from 'diff-arrays-of-objects'
-import { log } from 'console'
 
 export async function getTasksNParts(prjId: number) {
   if (!prjId) return 'no prjId'

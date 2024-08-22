@@ -5,7 +5,7 @@ export default async function partsPage({ searchParams: { prjId } }) {
   prjId = Number(prjId)
   if (!prjId) return null
 
-  const prts = await db.part.findMany({ orderBy: { updatedAt: 'desc' } })
+  const prts = await db.part.findMany({ where: { prjId }, orderBy: { updatedAt: 'desc' } })
 
   return (
     <div className="">

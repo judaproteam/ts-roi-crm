@@ -9,6 +9,10 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        solid: 'rgb(29 78 216)',
+        soft: 'rgb(219 234 254)',
+      },
       size: {
         4.5: '1.15rem',
         5.5: '1.4rem',

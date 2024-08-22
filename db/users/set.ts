@@ -4,7 +4,7 @@ import { revalidatePath } from 'next/cache'
 import { db } from '../db'
 import { Role } from '@prisma/client'
 
-export async function insertUser(data: any) {
+export async function addUser(data: any) {
   const user = await db.user.create({
     data: { ...data },
   })

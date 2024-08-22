@@ -20,7 +20,14 @@ export async function getUser() {
 export async function checkUser(user) {
   const userExist = await db.user.findUnique({
     where: { email: user.email },
-    select: { id: true, email: true, name: true, role: true },
+    select: {
+      id: true,
+      email: true,
+      name: true,
+      role: true,
+      companyId: true,
+      projects: { select: { id: true, name: true } },
+    },
   })
 
   if (!userExist) return { msg: 'המשתמש לא קיים במערכת', icon: 'error' }
@@ -42,6 +49,8 @@ export async function checkUser(user) {
     name: userExist.name,
     picture: user.picture,
     role: userExist.role,
+    companyId: userExist.companyId,
+    projects: userExist.projects,
   }
 
   const expires = daysFromNow(365)

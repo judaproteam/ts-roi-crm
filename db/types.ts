@@ -1,3 +1,5 @@
+import { Role } from '@prisma/client'
+
 export type TmpPart = {
   id: number
   name: string
@@ -22,8 +24,13 @@ export type MainTask = {
 export type User = {
   id: number
   email: string
-  role: string
+  role: Role
   name: string
+  companyId: number
+  projects: {
+    id: number
+    name: string
+  }[]
   picture?: string
   expires?: string
   iat?: number
