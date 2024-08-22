@@ -2,7 +2,7 @@ import { getUser } from '@/auth/authFuncs'
 import '@/styles/globals.scss'
 import UserProvider from '@/utils/userCtx'
 import { Assistant } from 'next/font/google'
-import GlobalPop from 'jude_ui/pop'
+import GlobalPop from 'zvijude/pop'
 
 const font = Assistant({ subsets: ['latin'] })
 

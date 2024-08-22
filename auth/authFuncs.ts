@@ -4,7 +4,7 @@ import { SignJWT, jwtVerify } from 'jose'
 import { cookies } from 'next/headers'
 import { redirect } from 'next/navigation'
 import { db } from '@/db/db'
-import { daysFromNow } from 'zvijude_ui/dates/funcs'
+import { daysFromNow } from 'zvijude/dates/funcs'
 import { NextRequest, NextResponse } from 'next/server'
 import { User } from '@/db/types'
 

@@ -1,6 +1,6 @@
 'use client'
 
-import Icon from 'jude_ui/icon'
+import Icon from 'zvijude/icon'
 import { Part } from '@prisma/client'
 import { useState } from 'react'
 import Table from '@/components/form/table/Table'
@@ -10,7 +10,7 @@ import { sumBy } from '@/utils/func'
 import { showPop } from '@/components/GlobalPopMsg'
 import DelPop from '@/components/DelPop'
 import { deletePart, insertPart, updatePart } from '@/db/parts/insert'
-import { Input, Textarea } from 'jude_ui/form'
+import { Input, Textarea } from 'zvijude/form'
 
 export default function Parts({ prts, prjId }) {
   const [tmpObj, setTmpObj] = useState({} as TmpPart)

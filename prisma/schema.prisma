@@ -45,15 +45,15 @@ model Company {
 }
 
 model Project {
-  id        Int      @id @default(autoincrement())
+  id        Int     @id @default(autoincrement())
   name      String
-  company   Company  @relation(fields: [companyId], references: [id])
+  company   Company @relation(fields: [companyId], references: [id])
+  companyId Int
+  User      User?   @relation(fields: [userId], references: [id])
+  userId    Int?
+
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  companyId Int
-  User      User? @relation(fields: [userId], references: [id])
-  userId    Int?
 }
 
 model Part {

@@ -3,7 +3,7 @@
 import { usePathname } from 'next/navigation'
 import { useSearchParams } from 'next/navigation'
 import Link from 'next/link'
-import Icon, { IconNames } from 'jude_ui/icon'
+import Icon, { IconNames } from 'zvijude/icon'
 
 type Props = {
   txt: string

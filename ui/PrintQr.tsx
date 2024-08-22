@@ -1,4 +1,4 @@
-import Icon from 'jude_ui/icon'
+import Icon from 'zvijude/icon'
 import { arrayOf } from '@/utils/func'
 import QR from 'react-qr-code'
 

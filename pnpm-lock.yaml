@@ -17,9 +17,6 @@ importers:
       jose:
         specifier: ^5.6.3
         version: 5.6.3
-      jude_ui:
-        specifier: ^0.6.25
-        version: 0.6.25
       jwt-decode:
         specifier: ^4.0.0
         version: 4.0.0
@@ -38,9 +35,9 @@ importers:
       tailwind-merge:
         specifier: ^2.5.2
         version: 2.5.2
-      zvijude_ui:
-        specifier: ^0.0.1
-        version: 0.0.1
+      zvijude:
+        specifier: ^0.0.2
+        version: 0.0.2
     devDependencies:
       '@types/node':
         specifier: ^20
@@ -398,9 +395,6 @@ packages:
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
 
-  jude_ui@0.6.25:
-    resolution: {integrity: sha512-3VXGHvdyiB4EAePoLU71tZLNKpHOO6mI1gdsXBv6lKizTr/eAW4wOFOu357bQ7ouRlZqEOqCZRhql3KtEbtU+A==}
-
   jwt-decode@4.0.0:
     resolution: {integrity: sha512-+KJGIyHgkGuIq3IEBNftfhW/LfWhXUIY6OmyVWjliu5KH1y0fw7VQ8YndE2O4qZdMSd9SqbnC8GOcZEy0Om7sA==}
     engines: {node: '>=18'}
@@ -723,8 +717,8 @@ packages:
     engines: {node: '>= 14'}
     hasBin: true
 
-  zvijude_ui@0.0.1:
-    resolution: {integrity: sha512-+d9Wc8uHfC7gCr7cBbnj2WINnWgRCEE6J5krYFmZ5RiMKOe0lxBZaLUh8kfcyymAP7Y3IX/Ja+r+jLkI5F0j/w==}
+  zvijude@0.0.2:
+    resolution: {integrity: sha512-IOh7WciTvR/YFmAo8Md6pBaDcgAkd0JvI6xGorOOucy0alqEptp/KrIs1Xo998l8gr9DIqEaObOkXt3dWcvu/A==}
 
 snapshots:
 
@@ -1017,8 +1011,6 @@ snapshots:
   jose@5.6.3: {}
 
   js-tokens@4.0.0: {}
-
-  jude_ui@0.6.25: {}
 
   jwt-decode@4.0.0: {}
 
@@ -1331,4 +1323,4 @@ snapshots:
 
   yaml@2.4.5: {}
 
-  zvijude_ui@0.0.1: {}
+  zvijude@0.0.2: {}

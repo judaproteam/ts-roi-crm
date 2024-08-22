@@ -1,4 +1,4 @@
-import { Textarea, Input } from 'jude_ui/form'
+import { Textarea, Input } from 'zvijude/form'
 
 export default function TaskForm({ task }) {
   return (

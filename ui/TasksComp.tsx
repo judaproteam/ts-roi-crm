@@ -2,7 +2,7 @@
 
 import TaskForm from '@/components/form/forms/TaskForm'
 import Table from '@/components/form/table/Table'
-import Icon from 'jude_ui/icon'
+import Icon from 'zvijude/icon'
 import { clone, genId } from '@/utils/func'
 import { useState } from 'react'
 import TaskTableRows from '@/components/form/table/TaskTableRows'

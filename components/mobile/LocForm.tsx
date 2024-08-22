@@ -1,8 +1,8 @@
-import Icon from 'jude_ui/icon'
+import Icon from 'zvijude/icon'
 import { arrayOf } from '@/utils/func'
 import { insertQr } from '@/db/qr/insert'
 import { getPartsByPrjWithTasksId } from '@/db/parts/get'
-import { Input, Select, SelectJson } from 'jude_ui/form'
+import { Input, Select, SelectJson } from 'zvijude/form'
 
 export default async function LocationForm({ prjId, qrNum }) {
   const prts = await getPartsByPrjWithTasksId(prjId)

@@ -2,6 +2,7 @@
 
 import { revalidatePath } from 'next/cache'
 import { db } from '../db'
+import { Role } from '@prisma/client'
 
 export async function insertUser(data: any) {
   const user = await db.user.create({
@@ -12,12 +13,15 @@ export async function insertUser(data: any) {
   return user
 }
 
-export async function insertUserNcompany(data: any) {
+export async function addCompany(data: any) {
   const companyName = data.companyName.trim()
   delete data.companyName
+
   const user = await db.user.create({
     data: {
+      role: Role.ADMIN,
       ...data,
+
       company: {
         create: {
           name: companyName,

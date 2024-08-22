@@ -6,7 +6,7 @@ import { useEffect } from 'react'
 import { checkUser } from './authFuncs'
 import { useRouter } from 'next/navigation'
 import { useUser } from '@/utils/userCtx'
-import { showPop } from 'jude_ui/pop'
+import { showPop } from 'zvijude/pop'
 
 declare global {
   const google: any

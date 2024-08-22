@@ -2,7 +2,7 @@ import { qrHeaders } from '@/components/form/table/headers'
 import QrTableRows from '@/components/form/table/QrTableRows'
 import Table from '@/components/form/table/Table'
 import { getQrs } from '@/db/qr/get'
-import Icon from 'jude_ui/icon'
+import Icon from 'zvijude/icon'
 import Link from 'next/link'
 
 export default async function Page({ searchParams: { prjId } }) {

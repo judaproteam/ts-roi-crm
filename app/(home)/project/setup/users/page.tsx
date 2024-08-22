@@ -1,11 +1,11 @@
 'use client'
 
 import UserTable from '@/components/form/table/UserTable'
-import Icon from 'jude_ui/icon'
+import Icon from 'zvijude/icon'
 import { getUsers } from '@/db/users/get'
 import { insertUser } from '@/db/users/set'
 
-import { Input, SelectObj } from 'jude_ui/form'
+import { Input, SelectObj } from 'zvijude/form'
 
 import { useEffect, useState } from 'react'
 

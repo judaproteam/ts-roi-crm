@@ -1,10 +1,10 @@
 'use client'
 
 import Login from '@/auth/Login'
-import { showPop } from 'jude_ui/pop'
-import { insertUserNcompany } from '@/db/users/set'
-import { Input } from 'jude_ui/form'
-import { getFormData } from 'jude_ui/form/funcs'
+import { showPop } from 'zvijude/pop'
+import { addCompany } from '@/db/users/set'
+import { Input } from 'zvijude/form'
+import { getFormData } from 'zvijude/form/funcs'
 
 export default function AuthPage() {
   return (
@@ -39,7 +39,7 @@ function NewProjPop() {
   async function createAccount(e) {
     const data = getFormData(e)
     showPop({ msg: 'שומר משתמש...', icon: 'loading' })
-    await insertUserNcompany(data)
+    await addCompany(data)
 
     showPop({ msg: 'החשבון נוצר בהצלחה, התחבר עם חשבון המייל שלך', icon: 'success' })
   }
