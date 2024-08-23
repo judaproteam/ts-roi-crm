@@ -8,7 +8,7 @@ export default async function partsPage({ searchParams: { prjId } }) {
   const prts = await db.part.findMany({ where: { prjId }, orderBy: { updatedAt: 'desc' } })
 
   return (
-    <div className="">
+    <div className="wrap">
       <Parts prts={prts} prjId={prjId} />
     </div>
   )

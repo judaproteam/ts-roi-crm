@@ -86,12 +86,16 @@ body {
   }
 }
 
+.wrap {
+  @apply m-8;
+}
+
 @layer components {
   .flex {
     @apply items-center gap-6 flex-wrap;
   }
   .paper {
-    @apply m-8 p-6 block rounded-md bg-white shadow;
+    @apply p-6 block rounded-md bg-white shadow-1;
     // min-width: 450px;
   }
 

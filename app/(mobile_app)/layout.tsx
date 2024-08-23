@@ -1,4 +1,4 @@
-import GlobalPopMsg from '@/components/GlobalPopMsg'
+import GlobalPopMsg from 'zvijude/pop'
 import '@/styles/globals.scss'
 import { Assistant } from 'next/font/google'
 

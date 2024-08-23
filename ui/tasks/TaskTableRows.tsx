@@ -8,7 +8,7 @@ export default function TaskTableRows({ rowsData }) {
       </tr>
       {rowsData.map((row, i) => {
         return (
-          <tr key={i} className="even:bg-blue-50/20">
+          <tr key={i} className="hover:bg-slate-50/50">
             <td className="tblRow">{i + 1}#</td>
             <td className="tblRow">{row.title}</td>
             <td className="tblRow">{row.desc}</td>

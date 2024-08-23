@@ -1,6 +1,6 @@
 import { qrHeaders } from '@/components/form/table/headers'
 import QrTableRows from '@/components/form/table/QrTableRows'
-import Table from '@/components/form/table/Table'
+import Table from '@/ui/tasks/Table'
 import { getQrs } from '@/db/qr/get'
 import Icon from 'zvijude/icon'
 import Link from 'next/link'

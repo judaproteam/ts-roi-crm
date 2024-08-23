@@ -1,4 +1,5 @@
 import type { Config } from 'tailwindcss'
+import { boxShadow } from 'zvijude/funcs/twTheme'
 
 const config: Config = {
   content: [
@@ -13,6 +14,7 @@ const config: Config = {
         solid: 'rgb(29 78 216)',
         soft: 'rgb(219 234 254)',
       },
+      boxShadow,
       size: {
         4.5: '1.15rem',
         5.5: '1.4rem',

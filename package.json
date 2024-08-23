@@ -9,7 +9,7 @@
     "db": "pnpx prisma migrate dev",
     "gen": "pnpx prisma generate",
     "postinstall": "prisma generate",
-    "update_jude": "pnpm remove zvijude && pnpm add zvijude"
+    "upjude": "pnpm remove zvijude && pnpm add zvijude"
   },
   "dependencies": {
     "@prisma/client": "^5.17.0",
@@ -21,7 +21,8 @@
     "react-dom": "^18",
     "react-qr-code": "^2.0.15",
     "tailwind-merge": "^2.5.2",
-    "zvijude": "^0.0.2"
+    "valtio": "^1.13.2",
+    "zvijude": "^0.0.9"
   },
   "devDependencies": {
     "@types/node": "^20",

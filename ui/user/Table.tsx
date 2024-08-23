@@ -1,11 +1,12 @@
-import TableHead from './TableHead'
+import TableHead from '@/components/form/table/TableHead'
+const headNames = ['שם מלא', 'תפקיד', 'טלפון', 'מייל', 'עריכה/מחיקה']
 
-export default function UserTable({ headNames, children }) {
+export default function UserTable({ children }) {
   return (
-    <main className="paper">
+    <main className="bg-white shadow-1 rounded-lg p-2">
       <div className="flex flex-col">
-        <div className="overflow-x-auto w-11/12">
-          <div className="p-1.5 min-w-full inline-block align-middle">
+        <div className="overflow-x-auto w-full">
+          <div className="min-w-full inline-block align-middle">
             <div className="overflow-hidden">
               <table className="min-w-full divide-y divide-gray-200">
                 <TableHead headNames={headNames} />

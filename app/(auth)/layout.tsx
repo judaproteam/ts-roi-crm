@@ -3,6 +3,7 @@ import '@/styles/globals.scss'
 import UserProvider from '@/utils/userCtx'
 import { Assistant } from 'next/font/google'
 import GlobalPop from 'zvijude/pop'
+import 'zvijude/style.css'
 
 const font = Assistant({ subsets: ['latin'] })
 

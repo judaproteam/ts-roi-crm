@@ -12,14 +12,14 @@ export default function TaskForm({ task }) {
         placeholder="כותרת המשימה לביצוע"
       />
 
-      <Textarea
-        lbl="פירוט המשימה"
-        name="desc"
-        defaultValue={task.desc}
-        placeholder="פרטי המשימה לביצוע"
-        className="col-span-2"
-      />
-
+      <div className="col-span-2">
+        <Textarea
+          lbl="פירוט המשימה"
+          name="desc"
+          defaultValue={task.desc}
+          placeholder="פרטי המשימה לביצוע"
+        />
+      </div>
       <div className="">
         <h2 className="font-bold mb-2">חובה בסיום המשימה</h2>
         <div className="fle">

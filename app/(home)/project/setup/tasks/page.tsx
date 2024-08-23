@@ -1,5 +1,5 @@
 import { getTasksNParts } from '@/db/tasks/get'
-import TasksComp from '@/ui/TasksComp'
+import TasksComp from '@/ui/tasks'
 
 export default async function Tasks({ searchParams: { prjId } }) {
   prjId = Number(prjId)
@@ -9,7 +9,7 @@ export default async function Tasks({ searchParams: { prjId } }) {
   let { grpTasks, parts, prtsNoGrp } = JSON.parse(res)
 
   return (
-    <div className="">
+    <div className="wrap">
       <TasksComp
         grpTasks={grpTasks}
         prtsNoGrp={prtsNoGrp}

@@ -20,7 +20,7 @@ model User {
   name      String?   @default(dbgenerated())
   role      Role      @default(INSTALLER)
   email     String    @unique
-  phone     String?
+  phone     String?   @unique
   otp       String?
   projects  Project[]
   company   Company   @relation(fields: [companyId], references: [id])

@@ -3,14 +3,15 @@
 import Icon from 'zvijude/icon'
 import { Part } from '@prisma/client'
 import { useState } from 'react'
-import Table from '@/components/form/table/Table'
+import Table from '@/ui/tasks/Table'
 import PartTableRows from '@/components/form/table/PartTableRows'
 import { TmpPart } from '@/db/types'
 import { sumBy } from '@/utils/func'
-import { showPop } from '@/components/GlobalPopMsg'
+import { showPop } from 'zvijude/pop'
 import DelPop from '@/components/DelPop'
 import { deletePart, insertPart, updatePart } from '@/db/parts/insert'
 import { Input, Textarea } from 'zvijude/form'
+import { Btn } from 'zvijude/btns'
 
 export default function Parts({ prts, prjId }) {
   const [tmpObj, setTmpObj] = useState({} as TmpPart)
@@ -72,7 +73,7 @@ export default function Parts({ prts, prjId }) {
 
   return (
     <main className="">
-      <section className="paper w-3/5 mx-auto">
+      <section className="paper max-w-4xl">
         <form id="qntityForm" onSubmit={onSave}>
           <div className="flex items-end justify-between border-b pb-3">
             <h2 className="flex gap-4">
@@ -80,10 +81,7 @@ export default function Parts({ prts, prjId }) {
               <span className="text-xl font-semibold">צור כתב כמויות</span>
             </h2>
 
-            <button className="btn-s">
-              <Icon name="floppy-disk" type="sol" className="bg-white" />
-              <p>שמור פרט</p>
-            </button>
+            <Btn lbl="שמור פרט" icon="floppy-disk" clr="solid" />
           </div>
 
           <span className="mt-8 grid grid-cols-3 gap-8">

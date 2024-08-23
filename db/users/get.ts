@@ -11,7 +11,19 @@ export async function getUsers({ prjId }) {
 
   const res = await db.project.findUnique({
     where: { id: Number(prjId) },
-    select: { users: { select: { id: true, name: true, role: true, email: true, phone: true } } },
+    select: {
+      users: {
+        select: {
+          id: true,
+          name: true,
+          firstName: true,
+          lastName: true,
+          role: true,
+          email: true,
+          phone: true,
+        },
+      },
+    },
   })
 
   revalidatePath('/users')
