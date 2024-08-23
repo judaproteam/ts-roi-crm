@@ -1,4 +1,4 @@
-import Icon from '../Icon'
+import Icon from 'zvijude/icon'
 
 export default function PartPop({ obj, onEditSave }) {
   return (
