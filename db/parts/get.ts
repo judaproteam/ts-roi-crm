@@ -4,11 +4,16 @@ import { sumBy } from '@/utils/func'
 import { db } from '../db'
 
 export async function getPartsByPrj(prjId: number) {
-  return await db.part.findMany({
-    where: {
-      prjId,
-    },
-  })
+  return await db.part
+    .findMany({
+      where: {
+        prjId,
+      },
+    })
+    .catch((err) => {
+      console.log(err)
+      return []
+    })
 }
 
 export async function getPartsSum(prjId: number) {

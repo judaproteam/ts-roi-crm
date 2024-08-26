@@ -29,9 +29,10 @@ model User {
   gglName String?
   picture String?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
   companyId Int
+  broblems  Problem[]
 }
 
 model Company {
@@ -72,16 +73,17 @@ model Part {
 }
 
 model MainTask {
-  id      Int      @id @default(autoincrement())
-  title   String
-  desc    String
-  tasksId Int
-  prjId   Int
-  order   Int
-  pic     Boolean? @default(false)
-  vid     Boolean? @default(false)
-  mngr    Boolean? @default(false)
-  Task    Task[]
+  id           Int      @id @default(autoincrement())
+  title        String
+  desc         String
+  tasksId      Int
+  prjId        Int
+  order        Int
+  pic          Boolean? @default(false)
+  vid          Boolean? @default(false)
+  mngr         Boolean? @default(false)
+  Task         Task[]
+  forInstaller Boolean  @default(true)
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
@@ -101,25 +103,25 @@ model Task {
   completedBy String?
   completedAt DateTime?
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
-  Rejects   Reject[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  problems  Problem[]
 }
 
-model Reject {
-  id           Int      @id @default(autoincrement())
-  reject       String
-  rejectAt     DateTime
-  rejectBy     String
-  rejectPics   String[]
-  rejectVids   String[]
-  rejectSolved Boolean  @default(false)
+model Problem {
+  id     Int      @id @default(autoincrement())
+  desc   String
+  pics   String[]
+  vids   String[]
+  solved Boolean  @default(false)
 
   task Task @relation(fields: [taskId], references: [id])
+  user User @relation(fields: [userId], references: [id])
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   taskId    Int
+  userId    Int
 }
 
 model Qr {

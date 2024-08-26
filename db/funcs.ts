@@ -6,3 +6,7 @@ export function fixBoolTaskProp(tasks) {
     return { ...t, prjId: global.prjId, order: i, id: parseInt(t.id) }
   }))
 }
+
+export function err(e) {
+  return { msg: e.message, err: true }
+}

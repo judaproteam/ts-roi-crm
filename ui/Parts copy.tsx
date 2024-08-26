@@ -12,36 +12,35 @@ import DelPop from '@/components/DelPop'
 import { deletePart, insertPart, updatePart } from '@/db/parts/insert'
 import { Input, Textarea } from 'zvijude/form'
 import { Btn } from 'zvijude/btns'
-import { getFormData } from 'zvijude/form/funcs'
 
 export default function Parts({ prts, prjId }) {
   const [tmpObj, setTmpObj] = useState({} as TmpPart)
 
-  async function onSave(e) {
+  async function onSave(e: React.SyntheticEvent) {
     e.preventDefault()
-    const data = getFormData(e) as Part
 
-    // const exist = prts.find((p) => p.name === data?.name.trim())
+    const form = e.target as HTMLFormElement
+
+    const partName = document.querySelector('[name=name]') as HTMLInputElement
+    const exist = prts.find((p) => p.name === partName?.value.trim())
     // if (exist) return showPop({ msg: 'שם הפרט כבר קיים', icon: 'error' })
 
+    if (!form.checkValidity()) return form.reportValidity()
     showPop({ msg: 'שומר פרט...', icon: 'loading' })
-
+    const data = new FormData(form)
     const part = {
-      ...data,
-      qntt: Number(data.qntt),
+      ...(Object.fromEntries(data) as unknown as Part),
+      qntt: parseInt(data.get('qntt') as string),
       prjId,
     }
 
     const res = (await insertPart(part)) as any
-    console.log('res msg: ', res.msg)
-    if (res.err) return showPop({ msg: res.msg.split('\n\n')[1], icon: 'ban' })
-
     if (res.err) return showPop({ msg: 'שגיאה, פרט לא נשמר', icon: 'ban' })
 
-    e?.target?.reset()
+    form.reset()
     showPop({ msg: 'פרט נשמר בהצלחה', icon: 'success' })
 
-    // partName.focus()
+    partName.focus()
   }
 
   async function onEditSave(e: React.SyntheticEvent) {

@@ -164,7 +164,13 @@ export default function TasksForm({
       })}
 
       <div className="flex justify-between mt-10">
-        <Btn lbl="הוסף משימה" icon="plus" onClick={onNextTask} clr="soft" className="self-start" />
+        <Btn
+          lbl={`משימה מס' ${tasks.length + 1}`}
+          icon="plus"
+          onClick={onNextTask}
+          clr="soft"
+          className="self-start"
+        />
 
         {!editMode && (
           <div>

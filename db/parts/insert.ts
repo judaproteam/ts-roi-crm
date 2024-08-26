@@ -3,18 +3,19 @@
 import { Part } from '@prisma/client'
 import { revalidatePath } from 'next/cache'
 import { db } from '../db'
+import { err } from '../funcs'
 
 export async function insertPart(data: Part) {
-  let res
-  try {
-    res = await db.part.create({
-      data,
+  const res = await db.part
+    .create({
+      data: {
+        ...data,
+        name: data.name.trim(),
+      },
     })
-  } catch (error: any) {
-    return { err: error.message }
-  }
+    .catch(err)
 
-  revalidatePath(`/project/${data.prjId}/parts`)
+  revalidatePath(`/project`)
 
   return res
 }
@@ -25,7 +26,7 @@ export async function updatePart({ id, data }: { id: number; data: Part }) {
     data,
   })
 
-  revalidatePath(`/project/${data.prjId}/parts`)
+  revalidatePath(`/project`)
   return res
 }
 
